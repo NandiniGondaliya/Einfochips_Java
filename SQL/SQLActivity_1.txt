@@ -1,0 +1,147 @@
+File created by NANDINI GONDALIYA
+==================================================================================================
+
+1.select moviename,movietype from movie where movietype like 'Drama%';
++------------------------+---------------+
+| moviename              | movietype     |
++------------------------+---------------+
+| Padmavat               | Drama Epic    |
+| Badhaai Ho             | Drama Comedy  |
+| Rangoon                | Drama         |
+| Bahubali-The Beginning | Drama Fantasy |
+| Maryada Ramanna        | Drama         |
+| Khaidi No.150          | Drama         |
+| Rangasthalam           | Drama Period  |
+| The Villain            | Drama         |
++------------------------+---------------+
+8 rows in set (0.00 sec)
+
+===================================================================================================
+
+2.select moviename from movie where movietype like 'Drama%';
++------------------------+
+| moviename              |
++------------------------+
+| Padmavat               |
+| Badhaai Ho             |
+| Rangoon                |
+| Bahubali-The Beginning |
+| Maryada Ramanna        |
+| Khaidi No.150          |
+| Rangasthalam           |
+| The Villain            |
++------------------------+
+8 rows in set (0.00 sec)
+
+===============================================================================================
+
+mysql> select moviename from movie where heroname='Ayushmann';
++------------+
+| moviename  |
++------------+
+| Badhaai Ho |
+| Andhadhun  |
++------------+
+2 rows in set (0.00 sec)
+
+==============================================================================================
+
+3.select count(moviename) from movie where length>18;
++------------------+
+| count(moviename) |
++------------------+
+|                6 |
++------------------+
+1 row in set (0.01 sec)
+
+================================================================================================
+
+4.select moviename from movie where length=(select min(length) from movie);
++---------------------+
+| moviename           |
++---------------------+
+| Badhaai Ho          |
+| The House Next Door |
+| Gruham              |
+| Aval                |
++---------------------+
+4 rows in set (0.00 sec)
+
+=================================================================================================
+
+5.select * from movie where language like 'T%';
++---------+------------------------+-------------+----------+--------------+----------+--------+---------------+--------------+
+| Movieid | Moviename              | Heroname    | Heroine  | Releaseddate | Language | Length | Movietype     | Productionid |
++---------+------------------------+-------------+----------+--------------+----------+--------+---------------+--------------+
+|     201 | Bahubali-The Beginning | Prabhas     | Tamannah | 2015-07-10   | Telugu   |     21 | Drama Fantasy |         9091 |
+|     206 | Maryada Ramanna        | Sunil       | Saloni   | 2010-07-23   | Telugu   |     19 | Drama         |         9091 |
+|     211 | Khaidi No.150          | chiranjeevi | Kajal    | 2017-01-11   | Telugu   |     20 | Drama         |         8892 |
+|     224 | Rangasthalam           | Ram Charan  | Samatha  | 2018-03-30   | Telugu   |     17 | Drama Period  |         7682 |
+|     231 | Bharath Ane nenu       | Mahesh Babu | Kiara    | 2018-04-20   | Telugu   |     15 | Thriller      |         7882 |
+|     244 | Gruham                 | Siddharth   | Andrea   | 2018-11-17   | Telugu   |     14 | Horror        |         1899 |
+|     267 | Anaganaga O Dheerudu   | Siddharth   | Shruthi  | 2014-01-14   | Telugu   |     16 | Fantasy       |         9091 |
+|     501 | 2.0                    | Rajnikanth  | Amy      | 2018-11-29   | Tamil    |     20 | Scientific    |         8892 |
+|     577 | Aval                   | Siddharth   | Andrea   | 2017-11-03   | Tamil    |     14 | Horror        |         1899 |
++---------+------------------------+-------------+----------+--------------+----------+--------+---------------+--------------+
+9 rows in set (0.00 sec)
+
+================================================================================================================================
+
+
+
+6.select moviename,heroname,heroine from movie where length=(select max(length) from movie);
++------------------------+---------------+-----------------+
+| moviename              | heroname      | heroine         |
++------------------------+---------------+-----------------+
+| Padmavat               | Shahid Kapoor | Deepika Padukon |
+| Bahubali-The Beginning | Prabhas       | Tamannah        |
+| K G F Chapter 1        | Yash          | Srinithi Shetty |
++------------------------+---------------+-----------------+
+3 rows in set (0.00 sec)
+
+===================================================================================================
+
+7.select moviename,heroname,heroine from movie where Releaseddate>'2018-03-15';
++------------------+-------------+-----------------+
+| moviename        | heroname    | heroine         |
++------------------+-------------+-----------------+
+| Badhaai Ho       | Ayushmann   | Neena           |
+| Andhadhun        | Ayushmann   | Radika Apte     |
+| Zero             | Shah ruck   | Katrina Kaif    |
+| Rangasthalam     | Ram Charan  | Samatha         |
+| Bharath Ane nenu | Mahesh Babu | Kiara           |
+| Gruham           | Siddharth   | Andrea          |
+| K G F Chapter 1  | Yash        | Srinithi Shetty |
+| The Villain      | Sudeep      | Amy             |
+| 2.0              | Rajnikanth  | Amy             |
++------------------+-------------+-----------------+
+9 rows in set (0.00 sec)
+============================================================================================
+
+8.select count(moviename) as Thriller_Movie from movie where movietype='Thriller';
++----------------+
+| Thriller_Movie |
++----------------+
+|              1 |
++----------------+
+1 row in set (0.00 sec)
+
+=============================================================================================
+
+9.select count(moviename) from movie where releaseddate<'2018-03-15';
++------------------+
+| count(moviename) |
++------------------+
+|                9 |
++------------------+
+1 row in set (0.00 sec)
+
+==============================================================================================
+
+10.select releaseddate from movie where moviename='Zero';
++--------------+
+| releaseddate |
++--------------+
+| 2018-12-21   |
++--------------+
+1 row in set (0.00 sec)
