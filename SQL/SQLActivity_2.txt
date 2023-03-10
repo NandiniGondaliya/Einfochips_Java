@@ -1,0 +1,102 @@
+mysql> select productions.Productionid,productions.productionname,count(productionname) from productions join movie on productions.productionid=movie.productionid group by productions.productionid;
++--------------+----------------------------+-----------------------+
+| Productionid | productionname             | count(productionname) |
++--------------+----------------------------+-----------------------+
+|         1010 | Hari Om Entertainment      |                     1 |
+|         1854 | Junglee Pictures           |                     1 |
+|         1899 | Viacom18 Studios           |                     6 |
+|         1988 | Red Chillies Entertainment |                     1 |
+|         2341 | CRM                        |                     1 |
+|         6773 | Hombale Flims              |                     1 |
+|         7682 | Mythri Movie Makers        |                     1 |
+|         7882 | DVV Entertainment          |                     1 |
+|         8892 | Lyca Productions           |                     2 |
+|         9091 | Arkamediaworks             |                     3 |
++--------------+----------------------------+-----------------------+
+10 rows in set (0.00 sec)
+
+======================================================================================================================================================================================
+
+mysql> select productions.Productionname,productions.ownername from productions join movie on productions.productionid=movie.productionid group by productions.productionid having count(productionname)>2;
++------------------+------------------+
+| Productionname   | ownername        |
++------------------+------------------+
+| Viacom18 Studios | Ajit Andhare     |
+| Arkamediaworks   | Shobu Yarlagadda |
++------------------+------------------+
+2 rows in set (0.00 sec)
+
+========================================================================================================================================================================================
+
+
+mysql> select p.productionname ,p.ownername from productions p join movie m on p.productionid=m.productionid group by p.productionname,p.ownername order by count(p.productionid) desc limit 1;
++------------------+--------------+
+| productionname   | ownername    |
++------------------+--------------+
+| Viacom18 Studios | Ajit Andhare |
++------------------+--------------+
+1 row in set (0.00 sec)
+
+
+==============================================================================================================================================================================
+
+mysql> select m.heroname from productions p join movie m on p.productionid=m.productionid where p.ownername='Subaskaran';
++-------------+
+| heroname    |
++-------------+
+| chiranjeevi |
+| Rajnikanth  |
++-------------+
+2 rows in set (0.00 sec)
+
+========================================================================================================================================================================
+
+mysql> select moviename,heroname from movie where productionid like '%82';
++------------------+-------------+
+| moviename        | heroname    |
++------------------+-------------+
+| Rangasthalam     | Ram Charan  |
+| Bharath Ane nenu | Mahesh Babu |
++------------------+-------------+
+2 rows in set (0.00 sec)
+
+==========================================================================================================================================================================
+
+mysql> select p.productionname,p.ownername from productions p left join movie m on p.productionid=m.productionid where m.productionid is null;
++----------------+-----------+
+| productionname | ownername |
++----------------+-----------+
+| STP            | Sree      |
++----------------+-----------+
+1 row in set (0.00 sec)
+
+============================================================================================================================================================================
+
+
+mysql> select p.productionname ,p.ownername from productions p where p.productionid not in(select productionid from movie where language='Hindi');
++---------------------+------------------+
+| productionname      | ownername        |
++---------------------+------------------+
+| STP                 | Sree             |
+| CRM                 | Manohar          |
+| Hombale Flims       | Vijay            |
+| Mythri Movie Makers | Naveen Yerneni   |
+| DVV Entertainment   | DVV Danavya      |
+| Lyca Productions    | Subaskaran       |
+| Arkamediaworks      | Shobu Yarlagadda |
++---------------------+------------------+
+7 rows in set (0.01 sec)
+
+
+===============================================================================================================================================================
+
+mysql> select m.heroname from movie m join productions p on p.productionid=m.productionid group by m.heroname order by count(m.language) desc limit 1;
++-----------+
+| heroname  |
++-----------+
+| Siddharth |
++-----------+
+1 row in set (0.00 sec)
+
+================================================================================================================================================================
+
