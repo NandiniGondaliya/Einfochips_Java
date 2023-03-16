@@ -13,12 +13,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.einfochips.abcmall.Repository.TicketRepository;
 import com.einfochips.abcmall.model.Ticket;
+import com.einfochips.abcmall.service.TicketService;
 
 @RestController
 public class MallController {
 
 	@Autowired
-	private TicketRepository TicketRepo;
+	private TicketService ticketservice;
 	@RequestMapping("/")
 	public ModelAndView getHome()
 	{
@@ -29,54 +30,46 @@ public class MallController {
 	@RequestMapping("insertticket")
 	public ModelAndView bookTicket(@RequestParam int noOfSeats,@RequestParam String movieName,@RequestParam LocalDate showDate,@RequestParam String showTime,@RequestParam String seat_Type,@ModelAttribute Ticket ticket) {
 		ModelAndView mv = new ModelAndView("success");
-		int seatcount=TicketRepo.countNoOfSeat(movieName, showDate, showTime, seat_Type);
-
+		
+		int seatcount=ticketservice.getBookedSeats(movieName, showDate, showTime, seat_Type);
 		
 		if(seat_Type.equalsIgnoreCase("Economy Rs.150")) {
 			
 			int seatpresent1=300-seatcount;
-			int amount=150*seatcount;
+			int amount=150*noOfSeats;
+			
 			if(noOfSeats>seatpresent1) {
 				mv.addObject("error","Seat not Available");
 			}
 			else 
 			{
-				TicketRepo.save(ticket);
+				ticketservice.TicketBooking(ticket);
 				mv.addObject("booked","Thanks for Booking");
-				mv.addObject("noofseat", seatcount);
-				mv.addObject("Bookticket",amount);
+				mv.addObject("noofseat","You have booked"+ noOfSeats);
+				mv.addObject("Bookticket","You have paid"+amount);
 			}
 			
 		}
 		if(seat_Type.equalsIgnoreCase("Platinum Rs.250")) {
-			int seatpresent2=100-seatcount;
+			int seatpresent2=100-noOfSeats;
 			int amount=250*seatcount;
 			if(noOfSeats>seatpresent2) {
 				mv.addObject("error","Seat not Available");
 				return mv;
 			}
 			else {
-				TicketRepo.save(ticket);
+				ticketservice.TicketBooking(ticket);
 				mv.addObject("booked","Thanks for Booking");
-				mv.addObject("noofseat","You have Booked "+seatcount);
+				mv.addObject("noofseat","You have Booked "+noOfSeats);
 				mv.addObject("Bookticket","You have paid "+amount);
 			}
 		}
 		
-		System.out.println(seatcount);
+		
 		return mv;
 		
 	}
-	@GetMapping("checkavailable")
-	public ModelAndView checkseats(@RequestParam String movieName,@RequestParam LocalDate showDate,@RequestParam String showTime,@RequestParam String seat_Type,@ModelAttribute Ticket ticket) {
-		ModelAndView mv=new ModelAndView("success");
-		int seatpresent=TicketRepo.countNoOfSeat(movieName, showDate, showTime, seat_Type);
-		
-		TicketRepo.save(ticket);
-		System.out.println("Here"+(300-seatpresent)+"Seats present for "+seat_Type);
-		System.out.println(100-seatpresent);
-		return mv;
-	}
+	
 
 	
 	
