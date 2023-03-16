@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.einfochips.abcmall.AbcmallApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.302 s - in com.einfochips.abcmall.AbcmallApplicationTests
