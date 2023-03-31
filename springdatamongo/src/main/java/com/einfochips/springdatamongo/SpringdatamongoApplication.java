@@ -1,0 +1,15 @@
+package com.einfochips.springdatamongo;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+
+@SpringBootApplication
+@EnableDiscoveryClient
+public class SpringdatamongoApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(SpringdatamongoApplication.class, args);
+	}
+
+}
